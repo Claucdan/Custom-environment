@@ -15,3 +15,9 @@ map('n', '<leader>di', '<cmd>DapStepInto<CR>', { desc = 'Step into' })
 map('n', '<leader>do', '<cmd>DapStepOut<CR>', { desc = 'Step out' })
 map('n', '<leader>dq', '<cmd>DapTerminate<CR>', { desc = 'Stop debug' })
 map('n', '<leader>du', '<cmd>lua require("dapui").toggle()<CR>', { desc = 'Toggle DAP UI' })
+
+-- LSP
+map('n', '<leader>lo', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true, desc = 'Open diagnostic' })
+map('n', '[l', '<cmd>DapContinue<CR>', { noremap = true, silent = true, desc = 'Go to prev diagnostic' })
+map('n', ']l', '<cmd>DapStepOver<CR>', { noremap = true, silent = true, desc = 'Go to next diagnostic' })
+map('n', '<leader>lt', '<cmd>DapStepInto<CR>', { noremap = true, silent = true, desc = 'Open toggle' })

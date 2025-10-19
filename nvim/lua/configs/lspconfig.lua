@@ -4,7 +4,7 @@ local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
--- Новый способ настройки LSP для Neovim 0.11+
+-- clangd lsp server
 vim.lsp.config('clangd', {
   on_attach = on_attach,
   on_init = on_init,
@@ -13,11 +13,22 @@ vim.lsp.config('clangd', {
     "clangd",
     "--background-index",
     "--clang-tidy",
-    "--header-insertion=iwyu",
+    "--experemental-modules-support",
+    "--all-scopes-completion",
     "--completion-style=detailed",
-    "--function-arg-placeholders=1",
+    "--header-insertion=iwyu",
+    "--limit-references=5",
+    "--malloc-trim",
+    "--pch-storage=disk",
   },
   filetypes = { "c", "cpp", "objc", "objcpp" },
+  init_options = {
+    fallbackFlags = {'-std=c++20'},
+  }
+})
+
+vim.diagnostic.config({
+  virtual_text = false,
 })
 
 vim.lsp.enable('clangd')

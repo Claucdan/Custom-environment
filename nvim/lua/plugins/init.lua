@@ -12,7 +12,11 @@ return {
       require "configs.lspconfig"
     end,
   },
-
+  -- Yank highlight
+  {
+    "machakann/vim-highlightedyank",
+    event = "VeryLazy",
+  },
   -- These are for C/C++ Debbuger
   {
     "nvim-neotest/nvim-nio",
