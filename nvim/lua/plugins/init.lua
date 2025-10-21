@@ -17,6 +17,11 @@ return {
     "machakann/vim-highlightedyank",
     event = "VeryLazy",
   },
+  -- Icons
+  {
+    'ryanoasis/vim-devicons',
+    event = "VeryLazy",
+  },
   -- These are for C/C++ Debbuger
   {
     "nvim-neotest/nvim-nio",
