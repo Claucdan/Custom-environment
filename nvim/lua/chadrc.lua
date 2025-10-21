@@ -19,9 +19,7 @@ M.mason = {
     ensure_installed = {
       "lua-language-server",
       "stylua",
-      "clangd",
-      "clang-format",
-      "codelldb"
+      "codelldb",
     }
   }
 }

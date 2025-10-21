@@ -13,7 +13,7 @@ vim.lsp.config('clangd', {
     "clangd",
     "--background-index",
     "--clang-tidy",
-    "--experemental-modules-support",
+    "--experimental-modules-support",
     "--all-scopes-completion",
     "--completion-style=detailed",
     "--header-insertion=iwyu",

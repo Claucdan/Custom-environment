@@ -21,3 +21,9 @@ map('n', '<leader>lo', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = t
 map('n', '[l', '<cmd>DapContinue<CR>', { noremap = true, silent = true, desc = 'Go to prev diagnostic' })
 map('n', ']l', '<cmd>DapStepOver<CR>', { noremap = true, silent = true, desc = 'Go to next diagnostic' })
 map('n', '<leader>lt', '<cmd>DapStepInto<CR>', { noremap = true, silent = true, desc = 'Open toggle' })
+
+-- Tabs
+map('n', '<leader>tn', '<cmd>:tabnew<CR>', { noremap = true, silent = true, desc = 'Open new tab' })
+map('n', '<leader>tc', '<cmd>:tabclose<CR>', { noremap = true, silent = true, desc = 'Close this tab' })
+map('n', '<leader>tl', '<cmd>:tabnext<CR>', { noremap = true, silent = true, desc = 'Go to next tab' })
+map('n', '<leader>th', '<cmd>:tabprevious<CR>', { noremap = true, silent = true, desc = 'Go to previous tab' })
