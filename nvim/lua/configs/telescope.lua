@@ -1,4 +1,4 @@
-return {
+require("telescope").setup(){
   defaults = {
     prompt_prefix = "   ",
     selection_caret = " ",
@@ -17,6 +17,6 @@ return {
     },
   },
 
-  extensions_list = { "themes", "terms" },
-  extensions = {},
+  extensions_list = { "themes", "terms", "noice", "persisted" },
+  extensions = { "noice", "persisted" },
 }

@@ -9,5 +9,3 @@ require("configs.lazy")
 require("mappings")
 require("options")
 require("custom.init")
-
-vim.cmd[[colorscheme darcula-dark]]

@@ -3,6 +3,8 @@ local map = vim.keymap.set
 -- ========== Basics =========== --
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
+map("t", "jk", "<C-\\><C-n>")
+map("n", "<leader>h", "<C-w>s | <cmd>terminal<CR> | i");
 
 -- ========== Debug =========== --
 map('n', '<leader>db', '<cmd>DapToggleBreakpoint<CR>', { desc = 'Toggle breakpoint' })
@@ -15,17 +17,12 @@ map('n', '<leader>du', '<cmd>lua require("dapui").toggle()<CR>', { desc = 'Toggl
 
 -- ========== LSP =========== --
 map('n', '<leader>lo', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true, desc = 'Open diagnostic' })
+map("n", "<leader>ll", '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true, desc = 'Show complete by lsp'})
 map('n', '[l', '<cmd>DapContinue<CR>', { noremap = true, silent = true, desc = 'Go to prev diagnostic' })
 map('n', ']l', '<cmd>DapStepOver<CR>', { noremap = true, silent = true, desc = 'Go to next diagnostic' })
 map('n', '<leader>lt', '<cmd>DapStepInto<CR>', { noremap = true, silent = true, desc = 'Open toggle' })
 map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "general clear highlights" })
-
--- ========== Tabs ========== --
-map('n', '<leader>tn', '<cmd>:tabnew<CR>', { noremap = true, silent = true, desc = 'Open new tab' })
-map('n', '<leader>tc', '<cmd>:tabclose<CR>', { noremap = true, silent = true, desc = 'Close this tab' })
-map('n', '<leader>tl', '<cmd>:tabnext<CR>', { noremap = true, silent = true, desc = 'Go to next tab' })
-map('n', '<leader>th', '<cmd>:tabprevious<CR>', { noremap = true, silent = true, desc = 'Go to previous tab' })
 
 -- ========== Sessions ============= --
 map("n", "<leader>ss", "<cmd>:SessionSave<CR>", {noremap = true, silent = true})
@@ -71,7 +68,42 @@ map("n", "<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hid
 map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 
 -- ========== Buffers ============= --
-map("n", "<leader>x", "<cmd>bp | sp | bn | bd<CR>", {desc = "Close buffer"})
+map("n", "<leader>x", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
+  local modified = vim.api.nvim_buf_get_option(bufnr, 'modified')
+
+  if buftype == 'terminal' then
+      vim.cmd('bp | sp | bn | bd!')
+      return
+  end
+
+  if modified then
+    vim.notify("Changes not saved")
+  else
+    vim.cmd('bp | sp | bn | bd')
+  end
+end, {desc = "Close buffer"})
 map("n", "<leader>e", "<cmd>enew<CR>", {desc = "Create buffer"})
 map("n", "<tab>", "<cmd>BufferLineCycleNext<CR>", {desc = "Go to next buffer"})
 map("n", "<S-tab>", "<cmd>BufferLineCyclePrev<CR>", {desc = "Go to prev buffer"})
+
+-- ========== Git ============= --
+map("n", "<leader>gb", "<cmd>Gitsigns blame<CR>", {desc = "Open blame for file"})
+map("n", "<leader>gl", "<cmd>Gitsigns blame<CR>", {desc = "Open blame for file"})
+map("n", "<leader>gco", "<cmd>GitConflictChooseOurs<CR>", {desc = "Select the current changes"})
+map("n", "<leader>gct", "<cmd>GitConflictChooseTheirs<CR>", {desc = "Select the incoming changes"})
+map("n", "<leader>gcn", "<cmd>GitConflictNextConflict<CR>", {desc = "Move to the next conflict"})
+map("n", "<leader>gcp", "<cmd>GitConflictPrevConflict<CR>", {desc = "Move to the previous conflict"})
+map("n", "<leader>ghn", "<cmd>Gitsigns blame<CR>", {desc = "Show hunk in normal mode"})
+map("n", "<leader>ghi", "<cmd>Gitsigns blame<CR>", {desc = "Show hunk inline"})
+map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", {desc = "Show diff of buffer"})
+map("n", "<leader>gs", "<cmd>Gitsigns stage_buffer<CR>", {desc = "Stage this buffer"})
+map("n", "<leader>gu", "<cmd>Gitui<CR>", {desc = "Stage this buffer"})
+
+-- ========== Target ============= --
+map("n", "<leader>tt", "<cmd>Build<CR>", {desc = "Build project"})
+map("n", "<leader>tt", "<cmd>Target<CR>", {desc = "Execute target"})
+map("n", "<leader>tn", "<cmd>TargetNew<CR>", {desc = "Create new target"})
+map("n", "<leader>tl", "<cmd>TargetList<CR>", {desc = "Show list of targets"})
+map("n", "<leader>td", "<cmd>TargetDelete<CR>", {desc = "Delete target from list"})

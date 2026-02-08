@@ -1,8 +1,8 @@
 return {
   ensure_installed = {
-    "bash",
     "c",
     "cpp",
+    "make",
     "cmake",
     "diff",
     "doxygen",
@@ -18,10 +18,11 @@ return {
     "lua",
     "luadoc",
     "luap",
-    "make",
     "markdown",
     "markdown_inline",
     "meson",
+    "php",
+    "phpdoc",
     "printf",
     "python",
     "query",
@@ -33,7 +34,7 @@ return {
     "vim",
     "vimdoc",
     "xml",
-    "yaml",
+    "yaml"
   },
 
   highlight = {
@@ -41,7 +42,5 @@ return {
     use_languagetree = true,
   },
 
-  indent = {
-    enable = true,
-  },
+  indent = { enable = true },
 }

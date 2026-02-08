@@ -1,34 +1,55 @@
 local M = {}
-local api = vim.api
+local map = vim.keymap.set
 
-local function check_triggeredChars(triggerChars)
-  local cur_line = api.nvim_get_current_line()
-  local pos = api.nvim_win_get_cursor(0)[2]
-  local prev_char = cur_line:sub(pos - 1, pos - 1)
-  local cur_char = cur_line:sub(pos, pos)
+-- export on_attach & capabilities
+M.on_attach = function(_, bufnr)
+  local function opts(desc)
+    return { buffer = bufnr, desc = "LSP " .. desc }
+  end
 
-  for _, char in ipairs(triggerChars) do
-    if cur_char == char or prev_char == char then
-      return true
+  map("n", "gD", vim.lsp.buf.declaration, opts "Go to declaration")
+  map("n", "gd", vim.lsp.buf.definition, opts "Go to definition")
+  map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
+  map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
+
+  map("n", "<leader>wl", function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, opts "List workspace folders")
+
+  map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
+end
+
+-- disable semanticTokens
+M.on_init = function(client, _)
+  if vim.fn.has "nvim-0.11" ~= 1 then
+    if client.supports_method "textDocument/semanticTokens" then
+      client.server_capabilities.semanticTokensProvider = nil
+    end
+  else
+    if client:supports_method "textDocument/semanticTokens" then
+      client.server_capabilities.semanticTokensProvider = nil
     end
   end
 end
 
-M.setup = function(client, bufnr)
-  local group = api.nvim_create_augroup("LspSignature", { clear = false })
-  api.nvim_clear_autocmds { group = group, buffer = bufnr }
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
-  local triggerChars = client.server_capabilities.signatureHelpProvider.triggerCharacters
-
-  api.nvim_create_autocmd("TextChangedI", {
-    group = group,
-    buffer = bufnr,
-    callback = function()
-      if check_triggeredChars(triggerChars) then
-        vim.lsp.buf.signature_help { focus = false, silent = true, max_height = 7, border = "single" }
-      end
-    end,
-  })
-end
+M.capabilities.textDocument.completion.completionItem = {
+  documentationFormat = { "markdown", "plaintext" },
+  snippetSupport = true,
+  preselectSupport = true,
+  insertReplaceSupport = true,
+  labelDetailsSupport = true,
+  deprecatedSupport = true,
+  commitCharactersSupport = true,
+  tagSupport = { valueSet = { 1 } },
+  resolveSupport = {
+    properties = {
+      "documentation",
+      "detail",
+      "additionalTextEdits",
+    },
+  },
+}
 
 return M

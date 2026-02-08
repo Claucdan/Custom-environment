@@ -2,7 +2,7 @@ local on_attach = require("configs.lsp.e-lspconfig").on_attach
 local on_init = require("configs.lsp.e-lspconfig").on_init
 local capabilities = require("configs.lsp.e-lspconfig").capabilities
 
--- clangd lsp server
+-- C/C++
 vim.lsp.config('clangd', {
   on_attach = on_attach,
   on_init = on_init,
@@ -17,15 +17,47 @@ vim.lsp.config('clangd', {
     "--completion-style=detailed",
     "--header-insertion=iwyu",
     "--limit-references=5",
-    "--malloc-trim",
     "--pch-storage=disk",
   },
-  filetypes = { "c", "cpp", "objc", "objcpp" },
-  init_options = {
-    fallbackFlags = {'-std=c++20'},
-  }
+  filetypes = { "c", "cpp", "h", "hpp", "objc", "objcpp" },
+  root_markers = { '.git' },
 })
 vim.lsp.enable('clangd')
+
+-- Go (gopls) lsp server
+vim.lsp.config('gopls', {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = { 'gopls' },
+  filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+  root_markers = { 'go.mod', '.git' },
+  single_file_support = true,
+  settings = {
+    gopls = {
+      completeUnimported = true,
+      usePlaceholders = true,
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
+})
+vim.lsp.enable('gopls')
+
+-- PhP
+vim.lsp.config('phpactor', {
+  cmd = { 'phpactor', 'language-server' },
+  filetypes = { 'php' },
+  root_markers = { 'composer.json', '.git' },
+  init_options = {
+    ["language_server_phpstan.enabled"] = false,
+    ["language_server_psalm.enabled"] = false,
+  }
+})
+vim.lsp.enable('phpactor')
 
 -- Lua
 vim.lsp.config('lua_ls', {
@@ -58,6 +90,16 @@ vim.lsp.config('bashls', {
   single_file_support = true,
 })
 vim.lsp.enable('bashls')
+
+-- Meson
+vim.lsp.config('meson_ls', {
+  cmd = { 'mesonlsp' },
+  filetypes = { 'meson' },
+  root_markers = { 'meson.build', '.git' },
+  single_file_support = true,
+  settings = {}
+})
+vim.lsp.enable('meson_ls')
 
 -- For all
 vim.diagnostic.config({

@@ -1,0 +1,1 @@
+{"barsic": "cp ~/engine/builddir/pmc2/pmc2-engine bin/.", "build": "meson compile -C builddir pmc2-engine", "test": "meson test -C builddir -v pmc2_tests", "barsic-master": "cp ~/builddir/pmc2/pmc2-engine && make run_alice"}

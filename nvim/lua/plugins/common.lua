@@ -4,39 +4,41 @@ return {
     "nvim-tree/nvim-web-devicons",
     opts = {},
   },
+  {
+    'nvim-mini/mini.nvim',
+    version = '*'
+  },
   -- Marks
   {
     "chentoast/marks.nvim",
     event = "VeryLazy",
     opts = {},
   },
-  -- Gitsigns
+  -- Git
   {
     "lewis6991/gitsigns.nvim",
     event = {"BufReadPre", "BufNewFile"},
-    opts = function ()
+    opts = function()
       require("configs.gitsigns")
-    end
+    end,
   },
-  -- Theme
   {
-    "xiantang/darcula-dark.nvim",
-    dependencies = {
-        "nvim-treesitter/nvim-treesitter",
-    },
+    'akinsho/git-conflict.nvim',
+    version = "*",
+    config = true
   },
   -- Nvim tree
   {
     "nvim-tree/nvim-tree.lua",
-    cmd = {'NvimTreeToggle', 'NvimTreeFocus'},
-    opts = function ()
-      require("configs.nvimtree")
+    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    opts = function()
+      return require "configs.nvimtree"
     end,
   },
   -- Pairs
   {
-    'nvim-mini/mini.pairs',
-    event = {"BufReadPre", "BufNewFile"},
+    "nvim-mini/mini.pairs",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
       modes = { insert = true, command = true, terminal = false },
       skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
@@ -44,16 +46,17 @@ return {
       skip_unbalanced = true,
       markdown = true,
     },
+
   },
   -- Formating
   {
     "stevearc/conform.nvim",
     event = 'BufWritePre',
-    config = function ()
-      require("configs.nvimtree")
+    config = function()
+      require "configs.conform"
     end,
   },
-  -- Yank Highlight
+  -- Yank highlight
   {
     "machakann/vim-highlightedyank",
     event = "VeryLazy",

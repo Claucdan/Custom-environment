@@ -2,9 +2,10 @@ return {
   -- Nvim lspconfig
   {
     "neovim/nvim-lspconfig",
-    config = function()
-      require "configs.lsp.lspconfig"
-    end,
+    event = { "BufReadPre", "BufNewFile" },
+    config = function ()
+      require("configs.lsp.lspconfig")
+    end
   },
   -- Mason
   {
@@ -13,12 +14,12 @@ return {
   },
   -- Mason lspconfig
   {
-      "mason-org/mason-lspconfig.nvim",
-      opts = {},
-      dependencies = {
-          "mason-org/mason.nvim",
-          "neovim/nvim-lspconfig",
-      },
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+      "mason-org/mason.nvim",
+      "neovim/nvim-lspconfig",
+    }
   },
   -- Nvim complete
   {
@@ -26,7 +27,6 @@ return {
     event = "InsertEnter",
     dependencies = {
       {
-        -- snippet plugin
         "L3MON4D3/LuaSnip",
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI" },
@@ -35,8 +35,6 @@ return {
           require "configs.luasnip"
         end,
       },
-
-      -- autopairing of (){}[] etc
       {
         "windwp/nvim-autopairs",
         opts = {
@@ -45,14 +43,11 @@ return {
         },
         config = function(_, opts)
           require("nvim-autopairs").setup(opts)
-
           -- setup cmp for autopairs
           local cmp_autopairs = require "nvim-autopairs.completion.cmp"
           require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end,
       },
-
-      -- cmp sources plugins
       {
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lua",
@@ -65,25 +60,82 @@ return {
       return require "configs.cmp"
     end,
   },
-  -- Treesitter
+  -- Treesitter (syntax)
   {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
-    opts = function()
-      return require "configs.treesitter"
-    end,
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+    config = function()
+      require("nvim-treesitter.config").setup(require "configs.treesitter")
     end,
   },
-  -- Ufo folders
+  -- Folders
   {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
     event = "VeryLazy",
+    config = function()
+      require("configs.ufo")
+    end
+  },
+  -- Tests
+  {
+    "nvim-neotest/neotest",
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "alfaix/neotest-gtest",
+      "olimorris/neotest-phpunit",
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-phpunit"),
+          require("neotest-gtest").setup({}),
+        },
+      })
+    end,
+  },
+  -- These are for C/C++ Debbuger
+  {
+    "nvim-neotest/nvim-nio",
+    event = "VeryLazy",
+  },
+  {
+    "mfussenegger/nvim-dap",
+    event = "VeryLazy",
     config = function ()
+      require("configs.nvim-dap").setup()
+    end
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
+    dependencies = "mfussenegger/nvim-dap",
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+    opts = {
+      handlers = {}
+    },
+  },
+  {
+  "theHamsta/nvim-dap-virtual-text",
+  dependencies = "mfussenegger/nvim-dap",
+  config = function()
+    require("nvim-dap-virtual-text").setup()
+  end,
+  },
+  {
+    'aspeddro/gitui.nvim',
+    config = function ()
+      require("gitui").setup()
     end,
   },
 }
