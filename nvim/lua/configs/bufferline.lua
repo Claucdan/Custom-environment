@@ -8,6 +8,37 @@ bufferline.setup {
             icon = '▎',
             style = 'icon',
         },
+        groups = {
+          items = {
+            {
+              name = 'tornado',
+              matcher = function(buf)
+                return (buf.path or ""):lower():match("tornado")
+              end,
+            },
+            {
+              name = 'gornado',
+              matcher = function(buf)
+                return (buf.path or ""):lower():match("gornado")
+              end,
+            },
+            {
+              name = 'tests',
+              matcher = function(buf)
+                return (buf.name or ""):lower():match("*test*%.cpp$")
+              end,
+            },
+            {
+              name = 'code',
+              matcher = function(buf)
+                return (buf.name or ""):lower():match("%.h$")
+                    or (buf.name or ""):lower():match("%.c$")
+                    or (buf.name or ""):lower():match("%.cpp$")
+              end,
+            },
+          },
+          hidden = false,
+        },
         buffer_close_icon = '󰅖',
         modified_icon = '● ',
         close_icon = ' ',
@@ -17,20 +48,6 @@ bufferline.setup {
         max_prefix_length = 15,
         truncate_names = true,
         tab_size = 18,
-        custom_filter = function(buf_number, buf_numbers)
-            if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
-                return true
-            end
-            if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
-                return true
-            end
-            if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
-                return true
-            end
-            if buf_numbers[1] ~= buf_number then
-                return true
-            end
-        end,
         offsets = {
             {
                 filetype = "NvimTree",

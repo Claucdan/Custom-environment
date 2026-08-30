@@ -7,6 +7,11 @@ map("n", "<leader>t", "<cmd>terminal<CR>", { desc = "Create new terminal" })
 map("t", "jk", "<C-\\><C-n>")
 map("n", "<leader>h", "<C-w>s | <cmd>terminal<CR> | i");
 
+
+-- ========== Undotree =========== --
+vim.cmd("packadd nvim.undotree")
+map("n", "<leader>u", require("undotree").open)
+
 -- ========== Debug =========== --
 map('n', '<leader>db', '<cmd>DapToggleBreakpoint<CR>', { desc = 'Toggle breakpoint' })
 map('n', '<leader>dr', '<cmd>DapContinue<CR>', { desc = 'Start/continue debug' })
@@ -21,9 +26,12 @@ map('n', '<leader>lo', '<cmd>lua vim.diagnostic.open_float()<CR>',
   { noremap = true, silent = true, desc = 'Open diagnostic' })
 map("n", "<leader>ll", '<cmd>lua vim.lsp.buf.code_action()<CR>',
   { noremap = true, silent = true, desc = 'Show complete by lsp' })
-map('n', '[l', '<cmd>DapContinue<CR>', { noremap = true, silent = true, desc = 'Go to prev diagnostic' })
-map('n', ']l', '<cmd>DapStepOver<CR>', { noremap = true, silent = true, desc = 'Go to next diagnostic' })
-map('n', '<leader>lt', '<cmd>DapStepInto<CR>', { noremap = true, silent = true, desc = 'Open toggle' })
+map('n', '[l', function() vim.diagnostic.jump({ count = -1 }) end,
+  { noremap = true, silent = true, desc = 'Go to prev diagnostic' })
+map('n', ']l', function() vim.diagnostic.jump({ count = 1 }) end,
+  { noremap = true, silent = true, desc = 'Go to next diagnostic' })
+map('n', '<leader>lt', vim.diagnostic.setloclist,
+  { noremap = true, silent = true, desc = 'Toggle diagnostics list' })
 map("n", "<leader>ls", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 map('n', '<leader>lu', function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end,
   { desc = "Toggle Diagnostics" })
@@ -52,9 +60,9 @@ map("i", "<C-k>", "<Up>", { desc = "move up" })
 map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
--- ========== Nvim-tree ============= --
-map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
-map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
+-- ========== Neotree ============= --
+map("n", "<C-n>", "<cmd>Neotree toggle<CR>", { desc = "nvimtree toggle window" })
+map("n", "<leader>e", "<cmd>Neotree focus<CR>", { desc = "nvimtree focus window" })
 
 -- ========== Telescope ============= --
 map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
@@ -76,8 +84,8 @@ map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 -- ========== Buffers ============= --
 map("n", "<leader>x", function()
   local bufnr = vim.api.nvim_get_current_buf()
-  local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
-  local modified = vim.api.nvim_buf_get_option(bufnr, 'modified')
+  local buftype = vim.bo[bufnr].buftype
+  local modified = vim.bo[bufnr].modified
 
   if buftype == 'terminal' then
     vim.cmd('bp | sp | bn | bd!')
@@ -90,9 +98,14 @@ map("n", "<leader>x", function()
     vim.cmd('bp | sp | bn | bd')
   end
 end, { desc = "Close buffer" })
-map("n", "<leader>e", "<cmd>enew<CR>", { desc = "Create buffer" })
+map("n", "<leader>n", "<cmd>enew<CR>", { desc = "Create buffer" })
 map("n", "<tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "Go to next buffer" })
 map("n", "<S-tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Go to prev buffer" })
+map("n", "<leader>bt", "<cmd>BufferLineGroupToggle tests<CR>", { desc = "Toggle 'tests' group" })
+map("n", "<leader>bc", "<cmd>BufferLineGroupToggle code<CR>", { desc = "Toggle 'code' group" })
+map("n", "<leader>bp", "<cmd>BufferLineGroupToggle tornado<CR>", { desc = "Toggle 'tornado' group" })
+map("n", "<leader>bg", "<cmd>BufferLineGroupToggle gornado<CR>", { desc = "Toggle 'gornado' group" })
+
 
 -- ========== Git ============= --
 map("n", "<leader>gb", "<cmd>Gitsigns blame<CR>", { desc = "Open blame for file" })
@@ -102,8 +115,8 @@ map("n", "<leader>gct", "<cmd>GitConflictChooseTheirs<CR>", { desc = "Select the
 map("n", "<leader>gcb", "<cmd>GitConflictChooseBoth<CR>", { desc = "Seletct both changes" })
 map("n", "<leader>gcn", "<cmd>GitConflictNextConflict<CR>", { desc = "Move to the next conflict" })
 map("n", "<leader>gcp", "<cmd>GitConflictPrevConflict<CR>", { desc = "Move to the previous conflict" })
-map("n", "<leader>ghn", "<cmd>Gitsigns blame<CR>", { desc = "Show hunk in normal mode" })
-map("n", "<leader>ghi", "<cmd>Gitsigns blame<CR>", { desc = "Show hunk inline" })
+map("n", "<leader>ghn", "<cmd>Gitsigns preview_hunk<CR>", { desc = "Show hunk in normal mode" })
+map("n", "<leader>ghi", "<cmd>Gitsigns preview_hunk_inline<CR>", { desc = "Show hunk inline" })
 map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "Show diff of buffer" })
 map("n", "<leader>gs", "<cmd>Gitsigns stage_buffer<CR>", { desc = "Stage this buffer" })
 map("n", "<leader>gu", "<cmd>Gitui<CR>", { desc = "Stage this buffer" })

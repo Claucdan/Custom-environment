@@ -1,14 +1,16 @@
 return {
   "folke/noice.nvim",
   event = "VeryLazy",
-  opts ={
-    -- add any options here
-  },
   dependencies = {
     "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
+    {
+      "rcarriga/nvim-notify",
+      opts = {
+        background_colour = "#000000",
+      },
+    },
   },
-  config = {
+  opts = {
     lsp = {
       signature = {
         enabled = false,
@@ -22,9 +24,9 @@ return {
       },
     },
     presets = {
-      long_message_to_split = true, -- long messages will be sent to a split
-      inc_rename = false, -- enables an input dialog for inc-rename.nvim
-      lsp_doc_border = false, -- add a border to hover docs and signature help
+      long_message_to_split = true,
+      inc_rename = false,
+      lsp_doc_border = false,
     },
   }
 }

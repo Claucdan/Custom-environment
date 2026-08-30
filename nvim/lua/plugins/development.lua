@@ -15,7 +15,17 @@ return {
   -- Mason lspconfig
   {
     "mason-org/mason-lspconfig.nvim",
-    opts = {},
+    opts = {
+      ensure_installed = {
+        "clangd",
+        "gopls",
+        "phpactor",
+        "lua_ls",
+        "bashls",
+        "mesonlsp",
+      },
+      automatic_enable = true,
+    },
     dependencies = {
       "mason-org/mason.nvim",
       "neovim/nvim-lspconfig",
@@ -100,6 +110,7 @@ return {
           "diff",
           "gitcommit",
           "gitignore",
+          "tla",
         },
         callback = function(args)
           pcall(vim.treesitter.start, args.buf)
@@ -133,24 +144,6 @@ return {
       require("configs.ufo")
     end
   },
-  -- Tests
-  {
-    "nvim-neotest/neotest",
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "alfaix/neotest-gtest",
-      "olimorris/neotest-phpunit",
-    },
-    config = function()
-      require("neotest").setup({
-        adapters = {
-          require("neotest-phpunit"),
-          require("neotest-gtest").setup({}),
-        },
-      })
-    end,
-  },
   -- These are for C/C++ Debbuger
   {
     "nvim-neotest/nvim-nio",
@@ -172,7 +165,7 @@ return {
     "jay-babu/mason-nvim-dap.nvim",
     event = "VeryLazy",
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "mfussenegger/nvim-dap",
     },
     opts = {
