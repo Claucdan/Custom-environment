@@ -1,21 +1,28 @@
 # ~/.bashrc
 
+# Interactive shell only.
 [[ $- != *i* ]] && return
 
-BASH_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/bash"
+# Resolve ~/.bashrc -> actual dotfiles/bash/.bashrc
+BASH_CONFIG_DIR="$(
+    dirname -- "$(readlink -f "$HOME/.bashrc")"
+)"
 
-for config in \
-    env \
-    aliases \
-    build \
-    perf \
-    systemd \
-    tools
+# Regular configuration.
+for file in \
+    env.bash \
+    aliases.bash \
+    build.bash \
+    perf.bash \
+    systemd.bash \
+    tools.bash
 do
-    file="$BASH_CONFIG_DIR/$config.bash"
+    [[ -r "$BASH_CONFIG_DIR/$file" ]] && source "$BASH_CONFIG_DIR/$file"
+done
+
+# Local configuration.
+for file in "$BASH_CONFIG_DIR"/local.*.bash; do
     [[ -r "$file" ]] && source "$file"
 done
 
-# Machine/private configuration.
-[[ -r "$BASH_CONFIG_DIR/local.bash" ]] &&
-    source "$BASH_CONFIG_DIR/local.bash"
+unset file
