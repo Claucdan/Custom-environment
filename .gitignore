@@ -1,0 +1,121 @@
+# ============================================================
+# Local / machine-specific configuration
+# ============================================================
+
+**/local.bash
+**/*.local
+**/*.local.*
+**/local.conf
+**/local.toml
+**/local.lua
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+*.secret
+*.secrets
+*.credentials
+
+
+# ============================================================
+# Backup / temporary files
+# ============================================================
+
+*.bak
+*.backup
+*.old
+*.orig
+*.tmp
+*.temp
+
+*~
+.*.swp
+.*.swo
+.*.swn
+
+# Vim / Neovim temporary files
+*.swp
+*.swo
+*.swn
+
+
+# ============================================================
+# Neovim
+# ============================================================
+
+# Machine/project-specific build targets
+nvim/build_targets.json
+
+# Generated profiling/debug files
+nvim/profile.log
+nvim/lsp.log
+
+# Keep lazy-lock.json!
+# It makes plugin versions reproducible.
+
+
+# ============================================================
+# Kitty
+# ============================================================
+
+kitty/*.bak
+
+# Optional machine-specific Kitty config
+kitty/local.conf
+
+
+# ============================================================
+# Atuin
+# ============================================================
+
+# config.toml is intentionally tracked.
+# Never commit Atuin's database/session data if it appears here.
+atuin/history.db
+atuin/*.db
+atuin/*.db-shm
+atuin/*.db-wal
+
+
+# ============================================================
+# OS / filesystem garbage
+# ============================================================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+Thumbs.db
+Desktop.ini
+
+
+# ============================================================
+# Logs / dumps
+# ============================================================
+
+*.log
+*.pid
+*.dump
+core
+core.*
+
+
+# ============================================================
+# Archives accidentally created inside dotfiles
+# ============================================================
+
+*.tar
+*.tar.gz
+*.tar.xz
+*.tgz
+*.zip
+*.7z
+
+
+# ============================================================
+# Generic cache directories
+# ============================================================
+
+.cache/
+**/.cache/
