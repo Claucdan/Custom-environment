@@ -77,6 +77,16 @@ vim.lsp.config('lua_ls', {
   }
 })
 
+-- Haskel
+vim.lsp.config('haskel_server', {
+  cmd = {
+    "haskell-language-server-9.10.3",
+  },
+  filetypes = { "hs", "lhs" },
+  root_markers = { '.git' },
+})
+
+
 vim.diagnostic.config({
   virtual_text = false,
 })

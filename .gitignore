@@ -37,6 +37,7 @@
 .*.swn
 
 # Vim / Neovim temporary files
+nvim/lazy-lock.json
 *.swp
 *.swo
 *.swn
