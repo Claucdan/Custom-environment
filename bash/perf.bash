@@ -26,10 +26,3 @@ flamegraph-diff() {
             flamegraph.pl > "img/perf-diff-$1-$2.svg"
     fi
 }
-
-binlog-dump() {
-    barsic dump \
-        --prefix="$1" \
-        --no-start-echo \
-        -- binlog-dumper --module "$2"
-}
