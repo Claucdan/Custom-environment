@@ -1,0 +1,32 @@
+[alias]
+    st = status
+    sw = switch
+    br = branch
+    co = checkout
+    ci = commit
+
+    lg = log --graph --decorate --oneline --all
+
+    up = "!git switch master && git pull"
+
+    update-master = "!f() { \
+        branch=$(git branch --show-current) || exit 1; \
+        [ -n \"$branch\" ] || { echo 'Detached HEAD'; exit 1; }; \
+        git switch master && \
+        git pull && \
+        git switch \"$branch\"; \
+    }; f"
+
+    rebase-master = "!f() { \
+        branch=$(git branch --show-current) || exit 1; \
+        [ -n \"$branch\" ] || { echo 'Detached HEAD'; exit 1; }; \
+        [ \"$branch\" != \"master\" ] || { \
+            echo 'Already on master'; \
+            git pull; \
+            exit $?; \
+        }; \
+        git switch master && \
+        git pull && \
+        git switch \"$branch\" && \
+        git rebase master; \
+    }; f"

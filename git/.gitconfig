@@ -1,0 +1,14 @@
+[include]
+    path = ~/Git/Custom-environment/git/aliases.gitconfig
+
+[core]
+    editor = nvim
+
+[init]
+    defaultBranch = master
+
+[pull]
+    rebase = true
+
+[rebase]
+    autoStash = true
