@@ -2,8 +2,8 @@
     st = status
     sw = switch
     br = branch
-    co = checkout
-    ci = commit
+    ch = checkout
+    ct = commit
 
     lg = log --graph --decorate --oneline --all
 
