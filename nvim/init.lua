@@ -7,6 +7,7 @@ vim.wo.relativenumber = true
 
 -- Add basic configs
 require("configs.lazy")
+require("base_configs")
 require("mappings")
 require("options")
 
