@@ -25,7 +25,9 @@ sanitizer-assisted test runs, `perf`, FlameGraph, and systemd user scopes.
 
 ```text
 .
-├── .bashrc               # Bash environment, aliases, and helper functions
+├── flake.nix             # Reproducible NixOS entry point
+├── nixos/                # Host and reusable NixOS modules
+├── bash/                 # Bash environment, aliases, and helper functions
 ├── atuin/                # Atuin configuration
 ├── gitui/                # GitUI key bindings
 ├── kitty/                # Kitty settings and color themes
@@ -35,6 +37,54 @@ sanitizer-assisted test runs, `perf`, FlameGraph, and systemd user scopes.
 
 Starship, direnv, zoxide, fzf, and eza do not currently have dedicated
 configuration directories tracked in this repository.
+
+## NixOS
+
+The flake exposes the `nixos` host. Its machine-specific configuration lives
+in `nixos/hosts/nixos`, while reusable settings are grouped by purpose in
+`nixos/modules`. Packages are split into desktop, development, shell, and
+general utility modules under `nixos/modules/packages`.
+
+From the repository root, check and apply the configuration with:
+
+```bash
+nix flake check
+sudo nixos-rebuild switch --flake .#nixos
+```
+
+On the first run, if flakes are not enabled in the currently booted system,
+pass the feature flags explicitly:
+
+```bash
+sudo nixos-rebuild switch \
+  --extra-experimental-features 'nix-command flakes' \
+  --flake .#nixos
+```
+
+Update the pinned Nixpkgs revision and rebuild with:
+
+```bash
+nix flake update
+sudo nixos-rebuild switch --flake .#nixos
+```
+
+Codex is taken from a separately pinned Nixpkgs `master` input so it can be
+updated without upgrading the stable NixOS package set:
+
+```bash
+nix flake update codex-nixpkgs
+sudo nixos-rebuild switch --flake .#nixos
+```
+
+The `codex-background-server` user service starts automatically when `hhhh`
+logs in and listens on the local Unix socket. Connect with
+`codex --remote unix://`. Check its status with
+`systemctl --user status codex-background-server` and view its logs with
+`journalctl --user -u codex-background-server`.
+
+Before using this configuration on another machine, regenerate or replace
+`nixos/hosts/nixos/hardware-configuration.nix` and adjust the host name,
+user, graphics driver, and `system.stateVersion` as appropriate.
 
 ## Installation
 
