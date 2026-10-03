@@ -17,12 +17,12 @@ return {
     "mason-org/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
-        "clangd",
-        "gopls",
-        "phpactor",
-        "lua_ls",
-        "bashls",
-        "mesonlsp",
+        -- "clangd",
+        -- "gopls",
+        -- "phpactor",
+        -- "lua_ls",
+        -- "bashls",
+        -- "mesonlsp",
       },
       automatic_enable = true,
     },
