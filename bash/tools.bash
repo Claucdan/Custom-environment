@@ -8,8 +8,8 @@ if ! shopt -oq posix; then
 fi
 
 # ble.sh
-[[ -r "$HOME/.local/share/blesh/out/ble.sh" ]] &&
-    source "$HOME/.local/share/blesh/out/ble.sh"
+[[ -r "/etc/blesh/ble.sh" ]] &&
+  source /etc/blesh/ble.sh
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
