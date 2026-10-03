@@ -99,6 +99,7 @@ return {
           "query",
           "markdown",
           "markdown_inline",
+          "nix",
           "html",
           "xml",
           "yaml",
@@ -114,7 +115,6 @@ return {
         },
         callback = function(args)
           pcall(vim.treesitter.start, args.buf)
-          vim.bo[args.buf].syntax = "on"
         end,
       })
     end,
