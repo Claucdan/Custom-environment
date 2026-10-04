@@ -1,6 +1,8 @@
 { ... }:
 
 {
+  time.timeZone = "Europe/Moscow";
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
