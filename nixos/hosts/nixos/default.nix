@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ../../modules/desktop.nix
     ../../modules/hardware.nix
+    ../../modules/home.nix
     ../../modules/login-theme.nix
     ../../modules/packages
     ../../modules/system.nix
