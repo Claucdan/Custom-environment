@@ -334,6 +334,13 @@ M.configure_highlights = function()
   hi(0, "TSVariableBuiltin",{ fg = color.yellow, italic = true })
 
   -- ── Statement / Identifier overrides ─────────────────────────────────────
+  -- Nix attributes and variables make up most of a configuration file.
+  hi(0, "@variable.nix",           { fg = color.light_purple })
+  hi(0, "@variable.member.nix",    { fg = color.teal })
+  hi(0, "@variable.parameter.nix", { fg = color.light_blue })
+  hi(0, "@string.special.path.nix",{ fg = color.green })
+  hi(0, "@string.special.url.nix", { fg = color.blue })
+
   hi(0, "Statement",  { link = "TSKeyword" })
   hi(0, "Comment",    { link = "TSComment" })
   hi(0, "Number",     { link = "TSNumber" })
