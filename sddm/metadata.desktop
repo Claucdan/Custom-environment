@@ -1,0 +1,9 @@
+[SddmGreeterTheme]
+Name=Custom environment
+Description=Two-column login screen with ProFont and translucent cards
+Type=sddm-theme
+Version=1.0
+MainScript=Main.qml
+Theme-Id=custom-environment
+Theme-API=2.0
+QtVersion=6
