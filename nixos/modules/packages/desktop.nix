@@ -14,6 +14,7 @@
     firefox
     grim
     hyprpaper
+    hyprshot
     kitty
     mako
     slurp
