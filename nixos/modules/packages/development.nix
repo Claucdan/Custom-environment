@@ -2,14 +2,19 @@
 
 {
   environment.systemPackages = with pkgs; [
+    bash-language-server
     clang
+    clang-tools
     cmake
+    cmake-language-server
     codexPkgs.codex
     gcc
     git
     gitui
+    lua-language-server
     meson
     neovim
+    nil
     ninja
     tree-sitter
     vim

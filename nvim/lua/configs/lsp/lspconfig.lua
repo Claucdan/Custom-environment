@@ -87,6 +87,8 @@ vim.lsp.config('haskel_server', {
 })
 
 
+vim.lsp.enable({ 'clangd', 'lua_ls', 'bashls', 'cmake', 'nil_ls' })
+
 vim.diagnostic.config({
   virtual_text = false,
 })
