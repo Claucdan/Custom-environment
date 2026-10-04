@@ -17,6 +17,7 @@
     hyprshot
     kitty
     mako
+    playerctl
     slurp
     waybar
     wl-clipboard
