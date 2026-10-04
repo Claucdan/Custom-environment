@@ -1,0 +1,84 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "margin-top": 6,
+    "margin-left": 8,
+    "margin-right": 8,
+    "spacing": 8,
+    "modules-left": ["hyprland/workspaces"],
+    "modules-right": [
+        "wlr/taskbar",
+        "idle_inhibitor",
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "temperature",
+        "hyprland/language",
+        "clock",
+        "tray",
+        "custom/power"
+    ],
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "all-outputs": false,
+        "active-only": false,
+        "on-click": "activate",
+        "sort-by-number": true,
+        "ignore-workspaces": ["^special:.*", "^secondary$"]
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 20,
+        "icon-theme": "Adwaita",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {"activated": "", "deactivated": ""},
+        "tooltip-format-activated": "Keep screen awake",
+        "tooltip-format-deactivated": "Allow screen to sleep"
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}  {format_source}",
+        "format-muted": "  {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {"headphone": "", "default": ["", "", ""]},
+        "scroll-step": 5,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    },
+    "network": {
+        "format-ethernet": "{ifname} via {gwaddr}  ",
+        "format-wifi": "{essid} {signalStrength}%  ",
+        "format-linked": "{ifname}  ",
+        "format-disconnected": "Offline  ⚠",
+        "tooltip-format": "{ifname}\n{ipaddr}/{cidr}\nGateway: {gwaddr}",
+        "max-length": 34
+    },
+    "cpu": {"format": "{usage}% ", "interval": 3},
+    "memory": {"format": "{percentage}% ", "interval": 3},
+    "temperature": {
+        "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+        "input-filename": "temp1_input",
+        "format": "{temperatureC}°C ",
+        "critical-threshold": 85,
+        "interval": 5
+    },
+    "hyprland/language": {"format": "  {}", "format-en": "US", "format-ru": "RU"},
+    "clock": {
+        "format": "{:%a %d %b  |  %H:%M}",
+        "format-alt": "{:%Y-%m-%d  |  %H:%M:%S}",
+        "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "tray": {"icon-size": 18, "spacing": 8},
+    "custom/power": {
+        "format": "",
+        "tooltip-format": "Power menu",
+        "on-click": "sh ~/.config/waybar/power-menu.sh"
+    }
+}

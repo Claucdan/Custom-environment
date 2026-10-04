@@ -1,0 +1,94 @@
+* {
+    font-family: "ProFontWindows Nerd Font Mono", "DejaVu Sans Mono", "Font Awesome 6 Free", "Font Awesome 7 Free", monospace;
+    font-size: 12px;
+    font-weight: bold;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: #cdd6f4;
+}
+
+tooltip {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border: 1px solid #89b4fa;
+    border-radius: 8px;
+}
+
+#workspaces,
+#taskbar,
+#idle_inhibitor,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#temperature,
+#language,
+#clock,
+#tray,
+#custom-power {
+    background: rgba(30, 30, 46, 0.92);
+    border-radius: 8px;
+    padding: 3px 9px;
+}
+
+#workspaces {
+    padding: 0 3px;
+}
+
+#workspaces button {
+    background: transparent;
+    color: #6c7086;
+    border: none;
+    border-radius: 6px;
+    padding: 0 7px;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#workspaces button.active {
+    color: #89b4fa;
+    background: #313244;
+}
+
+#workspaces button.urgent {
+    color: #f38ba8;
+}
+
+#workspaces button:hover,
+#taskbar button:hover {
+    background: #45475a;
+}
+
+#taskbar {
+    padding: 0 3px;
+}
+
+#taskbar button {
+    padding: 0 5px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    box-shadow: none;
+}
+
+#taskbar button.active {
+    background: #313244;
+}
+
+#idle_inhibitor { color: #94e2d5; }
+#idle_inhibitor.activated { color: #f9e2af; }
+#pulseaudio, #network { color: #89b4fa; }
+#pulseaudio.muted, #network.disconnected { color: #6c7086; }
+#cpu, #memory, #temperature { color: #cba6f7; }
+#temperature.critical { color: #f38ba8; }
+#language { color: #f5c2e7; }
+#clock { color: #f38ba8; }
+#custom-power { color: #89b4fa; padding: 3px 12px; }
+
+#custom-power:hover {
+    background: #45475a;
+    color: #f38ba8;
+}

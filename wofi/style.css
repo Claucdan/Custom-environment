@@ -1,0 +1,60 @@
+* {
+    font-family: "ProFontWindows Nerd Font Mono", "DejaVu Sans Mono", monospace;
+    font-size: 13px;
+}
+
+window {
+    background-color: #24243e;
+    color: #cdd6f4;
+    border: 2px solid #89b4fa;
+    border-radius: 15px;
+}
+
+#outer-box {
+    padding: 14px;
+}
+
+#input {
+    margin-bottom: 14px;
+    padding: 10px 8px;
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    border: none;
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+#input:focus {
+    box-shadow: none;
+}
+
+#scroll, #inner-box {
+    background-color: transparent;
+    border: none;
+}
+
+#entry {
+    padding: 4px 8px;
+    min-height: 30px;
+    border-radius: 5px;
+}
+
+#entry:selected {
+    background-color: #89b4fa;
+    color: #1e1e2e;
+    outline: none;
+}
+
+#text {
+    margin-left: 10px;
+    color: #cdd6f4;
+}
+
+#text:selected {
+    color: #1e1e2e;
+    font-weight: bold;
+}
+
+#img {
+    background-color: transparent;
+}
