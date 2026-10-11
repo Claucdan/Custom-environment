@@ -3,6 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     bash-language-server
+    ccache
     clang
     clang-tools
     cmake
@@ -18,7 +19,10 @@
     ninja
     tree-sitter
     vim
+    vscode
   ];
+
+  virtualisation.podman.enable = true;
 
   systemd.user.services.codex-background-server = {
     description = "Codex background app server";

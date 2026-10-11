@@ -16,8 +16,13 @@
     hyprpaper
     hyprshot
     kitty
+    krita
     mako
+    nautilus
+    obs-studio
+    pavucontrol
     playerctl
+    qbittorrent
     slurp
     waybar
     wl-clipboard

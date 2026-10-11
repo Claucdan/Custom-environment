@@ -17,6 +17,12 @@ in
   # Keep this at the version used when first enabling Home Manager.
   home.stateVersion = "26.05";
 
+  services.udiskie = {
+    enable = true;
+    automount = true;
+    tray = "never";
+  };
+
   xdg.enable = true;
   xdg.configFile = lib.genAttrs configDirs (name: {
     source = config.lib.file.mkOutOfStoreSymlink "${repo}/${name}";
