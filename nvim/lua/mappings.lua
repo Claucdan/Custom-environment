@@ -105,6 +105,7 @@ map("n", "<leader>bt", "<cmd>BufferLineGroupToggle tests<CR>", { desc = "Toggle 
 map("n", "<leader>bc", "<cmd>BufferLineGroupToggle code<CR>", { desc = "Toggle 'code' group" })
 map("n", "<leader>bp", "<cmd>BufferLineGroupToggle tornado<CR>", { desc = "Toggle 'tornado' group" })
 map("n", "<leader>bg", "<cmd>BufferLineGroupToggle gornado<CR>", { desc = "Toggle 'gornado' group" })
+map("n", "<leader>br", "<cmd>BufferRename<CR>", { desc = "Rename buffer label" })
 
 
 -- ========== Git ============= --
